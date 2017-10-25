@@ -1,0 +1,41 @@
+{
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "qemu_binary": "/usr/libexec/qemu-kvm",
+      "iso_url": "http://mirror.rit.edu/centos/7/os/x86_64/images/boot.iso",
+      "iso_checksum": "8fc7bb301bccbf84030ff4faf3a4bbb5",
+      "iso_checksum_type": "md5",
+      "output_directory": "output_centos_tdhtest",
+      "shutdown_command": "shutdown -P now",
+      "disk_size": 5000,
+      "format": "qcow2",
+      "headless": false,
+      "accelerator": "kvm",
+      "http_directory": "httpdir",
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "root",
+      "ssh_password": <replace>
+      "ssh_port": 22,
+      "ssh_wait_timeout": "600s",
+      "vm_name": "tdhtest",
+      "vnc_bind_address": "0.0.0.0",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_wait": "5s",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos7-ks.cfg<enter><wait>"
+      ]
+    }
+  ],
+  "provisioners":
+  [
+    { "type": "shell",
+      "script": "post.sh"
+    }
+  ]
+}
