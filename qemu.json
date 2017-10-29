@@ -7,10 +7,10 @@
       "iso_url": "http://mirror.rit.edu/centos/7/os/x86_64/images/boot.iso",
       "iso_checksum": "8fc7bb301bccbf84030ff4faf3a4bbb5",
       "iso_checksum_type": "md5",
-      "output_directory": "output_centos_tdhtest",
+      "output_directory": "output_centos_jdstest",
       "shutdown_command": "shutdown -P now",
       "disk_size": 5000,
-      "format": "qcow2",
+      "format": "raw",
       "headless": false,
       "accelerator": "kvm",
       "http_directory": "httpdir",
@@ -19,10 +19,10 @@
       "ssh_host_port_min": 2222,
       "ssh_host_port_max": 2229,
       "ssh_username": "root",
-      "ssh_password": <replace>
+      "ssh_password": "supersecret",
       "ssh_port": 22,
       "ssh_wait_timeout": "600s",
-      "vm_name": "tdhtest",
+      "vm_name": "azure-test",
       "vnc_bind_address": "0.0.0.0",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
@@ -34,8 +34,9 @@
   ],
   "provisioners":
   [
-    { "type": "shell",
-      "script": "post.sh"
+    { "type": "ansible-local",
+      "playbook_file": "ansible/main.yml",
+      "playbook_dir": "ansible"
     }
   ]
 }

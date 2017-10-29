@@ -1,0 +1,46 @@
+---
+- name: set up for Azure
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: replace /etc/sysconfig/network-scripts/ifcfg-eth0
+      copy:
+        src: files/ifcfg-eth0
+        dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+        mode: 0644
+    - name: replace /etc/sysconfig/network
+      copy:
+        src: files/network-sysconfig
+        dest: /etc/sysconfig/network
+        mode: 0644
+    - name: mask persistent-net-generator.rules
+      file:
+        path: /etc/udev/rules.d/75-persistent-net-generator.rules
+        state: link
+        src: /dev/null
+    - name: install Azure dracut configuration
+      copy:
+        src: files/azure-dracut
+        dest: /etc/dracut.conf.d/azure-dracut.conf
+        mode: 0644
+    - name: remove items from cmdline
+      lineinfile:
+        path: /etc/default/grub
+        regexp: '^GRUB_CMDLINE_LINUX(.*)(crashkernel=auto) (.*)rhgb quiet'
+        backrefs: yes
+        line: 'GRUB_CMDLINE_LINUX\1\3rootdelay=300 console=ttyS0 earlyprintk=ttyS0 net.ifnames=0"'
+    - name: set ClientAliveInterval in sshd_config
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#ClientAliveInterval.*'
+        line: 'ClientAliveInterval 180'
+    - name: enable the waagent service
+      service:
+        name: waagent.service
+        enabled: yes
+    - name: regenerate grub config
+      shell: /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+    - name: regenerate initramfs
+      shell: /usr/sbin/dracut -f
+    - name: execute waagnet deprovision
+      shell: /usr/sbin/waagent -force -deprovision

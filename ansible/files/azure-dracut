@@ -1,0 +1,1 @@
+add_drivers+="hv_vmbus hv_netvsc hv_storvsc"
