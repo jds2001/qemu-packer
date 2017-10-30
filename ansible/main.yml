@@ -1,6 +1,6 @@
 ---
 - name: set up for Azure
-  hosts: localhost
+  hosts: default
   become: yes
   tasks:
     - name: replace /etc/sysconfig/network-scripts/ifcfg-eth0

@@ -32,11 +32,10 @@
       ]
     }
   ],
-  "provisioners":
-  [
-    { "type": "ansible-local",
+  "provisioners": [
+    { "type": "ansible",
       "playbook_file": "ansible/main.yml",
-      "playbook_dir": "ansible"
+      "sftp_command": "/usr/libexec/openssh/sftp-server -e"
     }
   ]
 }
