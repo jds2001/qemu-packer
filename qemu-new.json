@@ -1,0 +1,41 @@
+{
+  "builders": [
+    {
+      "accelerator": "kvm",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos7-ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "5s",
+      "disk_interface": "virtio",
+      "disk_size": "5000M",
+      "format": "raw",
+      "headless": false,
+      "host_port_max": 2229,
+      "host_port_min": 2222,
+      "http_directory": "httpdir",
+      "http_port_max": 10089,
+      "http_port_min": 10082,
+      "iso_checksum": "md5:0ce8e06655e9fd2bbf9f4793f940925f",
+      "iso_url": "http://mirror.rit.edu/centos/7/os/x86_64/images/boot.iso",
+      "net_device": "virtio-net",
+      "output_directory": "output_centos_jdstest",
+      "qemu_binary": "/usr/libexec/qemu-kvm",
+      "shutdown_command": "shutdown -P now",
+      "ssh_password": "supersecret",
+      "ssh_port": 22,
+      "ssh_timeout": "600s",
+      "ssh_username": "root",
+      "type": "qemu",
+      "vm_name": "azure-test",
+      "vnc_bind_address": "0.0.0.0"
+    }
+  ],
+  "provisioners": [
+    {
+      "playbook_file": "ansible/main-bm.yml",
+      "sftp_command": "/usr/libexec/openssh/sftp-server -e",
+      "type": "ansible"
+    }
+  ]
+}
+

@@ -5,7 +5,7 @@
       "type": "qemu",
       "qemu_binary": "/usr/libexec/qemu-kvm",
       "iso_url": "http://mirror.rit.edu/centos/7/os/x86_64/images/boot.iso",
-      "iso_checksum": "8fc7bb301bccbf84030ff4faf3a4bbb5",
+      "iso_checksum": "0ce8e06655e9fd2bbf9f4793f940925f",
       "iso_checksum_type": "md5",
       "output_directory": "output_centos_jdstest",
       "shutdown_command": "shutdown -P now",

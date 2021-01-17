@@ -1,0 +1,14 @@
+---
+- name: set up for Azure
+  hosts: default
+  become: yes
+  tasks:
+    - name: set ClientAliveInterval in sshd_config
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#ClientAliveInterval.*'
+        line: 'ClientAliveInterval 180'
+    - name: regenerate grub config
+      shell: /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+    - name: regenerate initramfs
+      shell: /usr/sbin/dracut -f

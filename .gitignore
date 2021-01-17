@@ -1,2 +1,5 @@
 *.iso
 *.rpm
+packer_cache/
+output_centos_jdstest/
+build.*
