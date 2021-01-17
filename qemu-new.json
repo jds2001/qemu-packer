@@ -9,7 +9,7 @@
       "disk_interface": "virtio",
       "disk_size": "5000M",
       "format": "raw",
-      "headless": false,
+      "headless": true,
       "host_port_max": 2229,
       "host_port_min": 2222,
       "http_directory": "httpdir",
