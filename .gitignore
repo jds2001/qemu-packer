@@ -1,5 +1,7 @@
 *.iso
 *.rpm
+*.vars
 packer_cache/
 output_centos_jdstest/
+output_centos_jdstest-efi/
 build.*
