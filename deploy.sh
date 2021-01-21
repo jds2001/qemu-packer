@@ -8,7 +8,7 @@ wget http://${ip}/~jstanley/efi-image/efi-test
 dd if=efi-test of=/dev/sda
 sgdisk -e /dev/sda
 partprobe
-parted /dev/sda resize 3 100%
+parted /dev/sda resizepart 3 100%
 partprobe
 pvscan
 pvresize /dev/sda3
